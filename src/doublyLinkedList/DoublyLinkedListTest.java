@@ -207,7 +207,7 @@ class DoublyLinkedListTest {
 	}
 
 	@Test
-	void getElementAtEachPositionTest() {
+	void getExistingElementAtEachPositionFromListTest() {
 		DoublyLinkedList list = getList(4);
 		System.out.println("List = "+list);
 		
@@ -218,9 +218,23 @@ class DoublyLinkedListTest {
 			
 		}
 	}
+	
+	@Test
+	void getNonExistingElementFromListTest() {
+		DoublyLinkedList list = getList(4);
+		System.out.println("List = "+list);
+		assertThrows(IllegalArgumentException.class, () -> list.getElementAtPosition(10), "Invalid position.");
+	}
+	
+	@Test
+	void getNonExistingElementFromEmptyListTest() {
+		DoublyLinkedList list = getList();
+		System.out.println("List = "+list);
+		assertThrows(IllegalArgumentException.class, () -> list.getElementAtPosition(10), "Invalid position.");
+	}
 
 	@Test
-	void replaceElementAtEachPositionTest() {
+	void replaceElementAtEachPositionFromListTest() {
 		DoublyLinkedList list = getList(4);
 		System.out.println("List = "+list);
 		
@@ -236,6 +250,20 @@ class DoublyLinkedListTest {
 		}
 		
 		System.out.println("ReplacedList = " + list);
+	}
+	
+	@Test
+	void replaceNonExistingElementFromListTest() {
+		DoublyLinkedList list = getList(4);
+		System.out.println("List = "+list);
+		assertThrows(IllegalArgumentException.class, () -> list.replaceAtPosition(10, "false replace"), "Invalid position.");
+	}
+	
+	@Test
+	void replaceNonExistingElementFromEmptyListTest() {
+		DoublyLinkedList list = getList();
+		System.out.println("List = "+list);
+		assertThrows(IllegalArgumentException.class, () -> list.replaceAtPosition(10, "false replace"), "Invalid position.");
 	}
 	
 	@Test
@@ -258,7 +286,7 @@ class DoublyLinkedListTest {
 	
 	@Test
 	void removeExistingElementAtPositionFirstFromListTest() {
-		DoublyLinkedList list = getList(1);
+		DoublyLinkedList list = getList(3);
 		list.remove("1");
 		
 		assertEquals(2, list.getCount());
@@ -298,6 +326,82 @@ class DoublyLinkedListTest {
 		assertEquals(false, list.contains("non existing"));
 		System.out.println(list);
 		
+	}
+	
+	@Test
+	void removeExistingElementFromListWithOnlyOneElementTest() {
+		DoublyLinkedList list = getList(1);
+		list.remove("1");
+		assertEquals(0, list.getCount());
+		assertEquals(false, list.contains("1"));
+		System.out.println(list);
+	}
+	
+	@Test
+	void removeNonExistingElementFromListWithOnlyOneElementTest() {
+		DoublyLinkedList list = getList();
+		list.remove("1");
+		assertEquals(0, list.getCount());
+		assertEquals(false, list.contains("1"));
+		System.out.println(list);
+	}
+	
+	@Test
+	void removeFromPositionExistingElementAtPositionFirstFromListTest() {
+		DoublyLinkedList list = getList(3);
+		String removedElement = list.removeAtPosition(0);
+		
+		assertEquals("1", removedElement);
+		assertEquals(2, list.getCount());
+		assertEquals(false, list.contains(removedElement));
+		System.out.println(list);
+	}
+	
+	@Test
+	void removeFromPositionExistingElementAtPositionLastFromListTest() {
+		DoublyLinkedList list = getList(3);
+		String removedElement = list.removeAtPosition(2);
+		
+		assertEquals("3", removedElement);
+		assertEquals(2, list.getCount());
+		assertEquals(false, list.contains(removedElement));
+		System.out.println(list);
+	}
+	
+	@Test
+	void removeFromPositionExistingElementAtPositionMiddleFromListTest() {
+		DoublyLinkedList list = getList(3);
+		String removedElement = list.removeAtPosition(1);
+		
+		assertEquals("2", removedElement);
+		assertEquals(2, list.getCount());
+		assertEquals(false, list.contains(removedElement));
+		System.out.println(list);
+	}
+	
+	@Test
+	void removeFromPositionNonExistingElementFromListTest() {
+		DoublyLinkedList list = getList(3);
+		assertThrows(IllegalArgumentException.class, () -> list.removeAtPosition(10), "Invalid position.");
+		System.out.println(list);
+	}
+	
+	@Test
+	void removeFromPositionNonExistingElementFromListWithOnlyOneElementTest() {
+		DoublyLinkedList list = getList(1);
+		String removedElement = list.removeAtPosition(0);
+		
+		assertEquals("1", removedElement);
+		assertEquals(0, list.getCount());
+		assertEquals(false, list.contains(removedElement));
+		System.out.println(list);
+	}
+	
+	@Test
+	void removeFromPositionNonExistingElementFromEmptyListTest() {
+		DoublyLinkedList list = getList(0);
+		assertThrows(IllegalArgumentException.class, () -> list.removeAtPosition(10), "Invalid position.");
+		System.out.println(list);
 	}
 	
 	private DoublyLinkedList getList() {

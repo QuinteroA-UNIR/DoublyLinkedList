@@ -104,6 +104,17 @@ public class DoublyLinkedList {
 	public void remove(String element) {
 		Node removeNode = this.getNodeByValue(element);
 		if (removeNode == null) return;
+		this.removeNode(removeNode);
+	}
+	
+	public String removeAtPosition(int position) {
+		Node removeNode = this.getNodeAtPosition(position);
+		this.removeNode(removeNode);
+		return removeNode.getValue();
+	}
+	
+	private void removeNode(Node removeNode) {
+		if (removeNode == null) return;
 
 		this.setCount(this.getCount() - 1);
 		Node prevNode = removeNode.getPrev();
@@ -128,7 +139,7 @@ public class DoublyLinkedList {
 	
 	private Node getNodeAtPosition(int position) {
 		if ( position < 0 || position >= this.getCount() ){
-			throw new IllegalArgumentException("No negative positions allowed.");
+			throw new IllegalArgumentException("Invalid position.");
 		} else if (position == 0) {
 			return this.getHead();
 		} else if (position == this.getCount() - 1) {
