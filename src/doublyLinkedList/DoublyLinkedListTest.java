@@ -404,6 +404,37 @@ class DoublyLinkedListTest {
 		System.out.println(list);
 	}
 	
+	@Test
+	void concatTwoListsWithElementsTest() {
+		DoublyLinkedList list = getList(2);
+		DoublyLinkedList list2 = getList(3);
+		
+		list.concat(list2);
+		assertEquals(5, list.getCount());
+		assertEquals(list.getTail(), list2.getTail());
+		System.out.println(list);
+	}
+	
+	@Test
+	void concatListsWithEmptyListTest() {
+		DoublyLinkedList list = getList(1);
+		DoublyLinkedList list2 = getList();
+		
+		list.concat(list2);
+		assertEquals(1, list.getCount());
+		System.out.println(list);
+	}
+	
+	@Test
+	void concatTwoEmptyListsTest() {
+		DoublyLinkedList list = getList();
+		DoublyLinkedList list2 = getList();
+		
+		list.concat(list2);
+		assertEquals(0, list.getCount());
+		System.out.println(list);
+	}
+	
 	private DoublyLinkedList getList() {
 		return new DoublyLinkedList();
 	}

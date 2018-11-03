@@ -113,6 +113,20 @@ public class DoublyLinkedList {
 		return removeNode.getValue();
 	}
 	
+	public void concat(DoublyLinkedList list) {
+		if (this.getTail() != null) {			
+			this.getTail().setNext(list.getHead());
+		} else {
+			this.setHead(list.getHead());
+		}
+		
+		if (list.getCount() > 0) {
+			list.getHead().setPrev(this.getTail());
+			this.setTail(list.getTail());
+		}
+		this.setCount(this.getCount() + list.getCount());
+	}
+	
 	private void removeNode(Node removeNode) {
 		if (removeNode == null) return;
 
