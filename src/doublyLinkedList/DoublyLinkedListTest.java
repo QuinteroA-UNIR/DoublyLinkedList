@@ -1,11 +1,18 @@
 package doublyLinkedList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import org.junit.jupiter.api.Test;
 
-import doublyLinkedList.DoublyLinkedList;
-
+/**
+ * Test Methods for the DoublyLinkedList class.
+ * @author Arnaldo Quintero Segura
+ *
+ */
 class DoublyLinkedListTest {
 
 	@Test
@@ -17,195 +24,52 @@ class DoublyLinkedListTest {
 	}
 	
 	@Test
-	void addElementToEmptyListTest() {
-
+	void getListCountFromEmptyListTest() {
 		DoublyLinkedList list = getList();
-		list.insert("1");
-		Node listHead = list.getHead();
-		Node listTail = list.getTail();
-
-		assertEquals(1,list.getCount());
-		assertEquals("1", listHead.getValue());
-		assertEquals(null, listHead.getNext());
-		assertEquals(null, listHead.getPrev());
-		assertEquals(listHead, listTail);
-		System.out.println(list);
+		assertEquals(0, list.getCount());
 	}
 	
 	@Test
-	void appendElementToEmptyListTest() {
-
-		DoublyLinkedList list = getList();
-		list.append("1");
-		Node listHead = list.getHead();
-		Node listTail = list.getTail();
-
-		assertEquals(1,list.getCount());
-		assertEquals("1", listTail.getValue());
-		assertEquals(null, listHead.getNext());
-		assertEquals(null, listHead.getPrev());
-		assertEquals(listHead, listTail);
-		System.out.println(list);
-	}		
-	
-	@Test
-	void addElementToListWithOneExistingItemTest() {
-
+	void getListCountFromListWithOnlyOneElementTest() {
 		DoublyLinkedList list = getList(1);
-		list.insert("2");
-		Node listHead = list.getHead();
-		Node listTail = list.getTail();
-
-		assertEquals(2,list.getCount());
-		assertEquals("2", listHead.getValue());
-		assertEquals("1", listTail.getValue());
-		assertEquals(listTail, listHead.getNext());
-		assertEquals(null, listHead.getPrev());
-		assertEquals(null, listTail.getNext());
-		assertEquals(listHead, listTail.getPrev());
-		System.out.println(list);
-		
+		assertEquals(1, list.getCount());
 	}
 	
 	@Test
-	void appendElementToListWithOneExistingItemTest() {
-
+	void getListCountFromListWithSeveralElementsTest() {
+		int numberOfElements = 4;
+		DoublyLinkedList list = getList(numberOfElements);
+		assertEquals(numberOfElements, list.getCount());
+	}
+	
+	@Test
+	void getHeadElementFromListWithOnlyOneElementTest() {
 		DoublyLinkedList list = getList(1);
-		list.append("2");
-		Node listHead = list.getHead();
-		Node listTail = list.getTail();
-
-		assertEquals(2,list.getCount());
-		assertEquals("1", listHead.getValue());
-		assertEquals("2", listTail.getValue());
-		assertEquals(listTail, listHead.getNext());
-		assertEquals(null, listHead.getPrev());
-		assertEquals(null, listTail.getNext());
-		assertEquals(listHead, listTail.getPrev());
-		System.out.println(list);
-		
+		String head = list.getHead();
+		assertEquals("1", head);
 	}
 	
 	@Test
-	void addElementToListWithExistingItemsTest() {
-
-		DoublyLinkedList list = getList(2);
-		list.insert("3");
-		Node listHead = list.getHead();
-		Node listTail = list.getTail();
-
-		assertEquals(3,list.getCount());
-		assertEquals("3", listHead.getValue());
-		assertEquals("2", listTail.getValue());
-		assertEquals(listHead.getNext(),listTail.getPrev());
-		System.out.println(list);
-		
-	}
-	
-	@Test
-	void appendElementToListWitExistingItemsTest() {
-
-		DoublyLinkedList list = getList(2);
-		list.append("3");
-		Node listHead = list.getHead();
-		Node listTail = list.getTail();
-
-		assertEquals(3,list.getCount());
-		assertEquals("1", listHead.getValue());
-		assertEquals("3", listTail.getValue());
-		assertEquals(listHead.getNext(),listTail.getPrev());
-		System.out.println(list);
-		
-	}
-	
-	@Test
-	void insertElementAtPositionFirstToEmptyListTest() {
-		DoublyLinkedList list = getList();
-		list.insertAtPosition(0, "1");
-		Node listHead = list.getHead();
-		Node listTail = list.getTail();
-
-		assertEquals(1,list.getCount());
-		assertEquals("1", listHead.getValue());
-		assertEquals(null, listHead.getNext());
-		assertEquals(null, listHead.getPrev());
-		assertEquals(listHead, listTail);
-		System.out.println(list);
-	}
-	
-	@Test
-	void insertElementAtPositionFirstToListWithExistingItemsTest() {
-		DoublyLinkedList list = getList(2);
-		list.insertAtPosition(0, "0");
-		Node listHead = list.getHead();
-		Node listTail = list.getTail();
-
-		assertEquals(3,list.getCount());
-		assertEquals("0", listHead.getValue());
-		assertEquals(listHead.getNext(), listTail.getPrev());
-		System.out.println(list);
-	}
-	
-	@Test
-	void insertElementAtPositionLastToEmptyListTest() {
-		DoublyLinkedList list = getList();
-		list.insertAtPosition(1, "1");
-		Node listHead = list.getHead();
-		Node listTail = list.getTail();
-
-		assertEquals(1,list.getCount());
-		assertEquals("1", listHead.getValue());
-		assertEquals(null, listHead.getNext());
-		assertEquals(null, listHead.getPrev());
-		assertEquals(listHead, listTail);
-		System.out.println(list);
-		
-	}
-	
-	@Test
-	void insertElementAtPositionLastToListWithExistingItemsTest() {
-		DoublyLinkedList list = getList(2);
-		list.insertAtPosition(3, "3");
-		Node listHead = list.getHead();
-		Node listTail = list.getTail();
-
-		assertEquals(3,list.getCount());
-		assertEquals("3", listTail.getValue());
-		assertEquals(listHead.getNext(), listTail.getPrev());
-		System.out.println(list);
-	}
-	
-	@Test
-	void insertElementAtPositionInvalidToListWithExistingItemsTest() {
-		DoublyLinkedList list = getList(2);
-		assertThrows(IllegalArgumentException.class, () -> list.insertAtPosition(-1, "-1"), "No negative positions allowed.");
-		System.out.println(list);
-	}
-	
-	@Test
-	void insertElementAtPositionCloserToTheFrontToListWithExistingItemsTest() {
-		DoublyLinkedList list = getList(2);
-		list.insertAtPosition(1, "0");
-		Node listHead = list.getHead();
-		Node listTail = list.getTail();
-		
-		assertEquals(list.getCount(),3);
-		assertEquals(listHead.getNext(), listTail.getPrev());
-		assertEquals(listHead.getNext().getValue(), "0");
-		System.out.println(list);
-	}
-	
-	@Test
-	void insertElementAtPositionCloserToTheEndToListWithExistingItemsTest() {
+	void getHeadElementFromListWithSeveralElementsTest() {
 		DoublyLinkedList list = getList(4);
-		list.insertAtPosition(3, "0");
-		Node listTail = list.getTail();
-		
-		assertEquals(list.getCount(),5);
-		assertEquals(listTail.getPrev().getValue(), "0");
-		System.out.println(list);
+		String head = list.getHead();
+		assertEquals("1", head);
 	}
-
+	
+	@Test
+	void getTailElementFromListWithOnlyOneElementTest() {
+		DoublyLinkedList list = getList(1);
+		String tail = list.getTail();
+		assertEquals("1", tail);
+	}
+	
+	@Test
+	void getTailElementFromListWithSeveralElementsTest() {
+		DoublyLinkedList list = getList(4);
+		String tail = list.getTail();
+		assertEquals("4", tail);
+	}
+	
 	@Test
 	void getExistingElementAtEachPositionFromListTest() {
 		DoublyLinkedList list = getList(4);
@@ -232,7 +96,215 @@ class DoublyLinkedListTest {
 		System.out.println("List = "+list);
 		assertThrows(IllegalArgumentException.class, () -> list.getElementAtPosition(10), "Invalid position.");
 	}
+	
+	@Test
+	void printEmptyListTest() {
+		final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		 System.setOut(new PrintStream(outContent));
+		 DoublyLinkedList list = getList();
+		 list.print();
+		 assertEquals("Empty List\n", outContent.toString());
+	}
+	
+	@Test
+	void printListWithOnlyOneElementTest() {
+		final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		 System.setOut(new PrintStream(outContent));
+		 DoublyLinkedList list = getList(1);
+		 list.print();
+		 assertEquals("[ 1 ]\n", outContent.toString());
+	}
+	
+	@Test
+	void printListWithMoreThanOneElementTest() {
+		final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		 System.setOut(new PrintStream(outContent));
+		 DoublyLinkedList list = getList(4);
+		 list.print();
+		 assertEquals("[ 1, 2, 3, 4 ]\n", outContent.toString());
+	}
+	
+	@Test
+	void checkIfExistingElementIsInListTest() {
+		DoublyLinkedList list = getList(4);
+		for (int i = 0; i < list.getCount(); i++) {	
+			assertEquals(true, list.contains(Integer.toString(i+1)));
+		}
+		System.out.println(list);
+	}
+	
+	@Test
+	void checkIfNonExistingElementIsInListTest() {
+		DoublyLinkedList list = getList(4);
+		for (int i = 0; i < list.getCount(); i++) {			
+			assertEquals(false, list.contains("false string"));
+		}
+		System.out.println(list);
+	}
+	
+	@Test
+	void insertElementToEmptyListTest() {
 
+		DoublyLinkedList list = getList();
+		list.insert("1");
+		String listHead = list.getHead();
+		String listTail = list.getTail();
+
+		assertEquals(1,list.getCount());
+		assertEquals("1", listHead);
+		assertEquals(listHead, listTail);
+		System.out.println(list);
+	}
+	
+	@Test
+	void insertElementToListWithOneExistingItemTest() {
+
+		DoublyLinkedList list = getList(1);
+		list.insert("2");
+		String listHead = list.getHead();
+		String listTail = list.getTail();
+
+		assertEquals(2,list.getCount());
+		assertEquals("2", listHead);
+		assertEquals("1", listTail);
+		System.out.println(list);
+		
+	}
+	
+	@Test
+	void insertElementToListWithExistingItemsTest() {
+
+		DoublyLinkedList list = getList(2);
+		list.insert("3");
+		String listHead = list.getHead();
+		String listTail = list.getTail();
+
+		assertEquals(3,list.getCount());
+		assertEquals("3", listHead);
+		assertEquals("2", listTail);
+		System.out.println(list);
+	}
+	
+	@Test
+	void insertElementAtPositionFirstToEmptyListTest() {
+		DoublyLinkedList list = getList();
+		list.insertAtPosition(0, "1");
+		String listHead = list.getHead();
+		String listTail = list.getTail();
+
+		assertEquals(1,list.getCount());
+		assertEquals("1", listHead);
+		assertEquals(listHead, listTail);
+		System.out.println(list);
+	}
+	
+	@Test
+	void insertElementAtPositionFirstToListWithExistingItemsTest() {
+		DoublyLinkedList list = getList(2);
+		list.insertAtPosition(0, "0");
+		String listHead = list.getHead();
+
+		assertEquals(3,list.getCount());
+		assertEquals("0", listHead);
+		System.out.println(list);
+	}
+	
+	@Test
+	void insertElementAtPositionLastToEmptyListTest() {
+		DoublyLinkedList list = getList();
+		list.insertAtPosition(1, "1");
+		String listHead = list.getHead();
+		String listTail = list.getTail();
+
+		assertEquals(1,list.getCount());
+		assertEquals("1", listHead);
+		assertEquals(listHead, listTail);
+		System.out.println(list);
+		
+	}
+	
+	@Test
+	void insertElementAtPositionLastToListWithExistingItemsTest() {
+		DoublyLinkedList list = getList(2);
+		list.insertAtPosition(3, "3");
+		String listTail = list.getTail();
+
+		assertEquals(3,list.getCount());
+		assertEquals("3", listTail);
+		System.out.println(list);
+	}
+	
+	@Test
+	void insertElementAtPositionInvalidToListWithExistingItemsTest() {
+		DoublyLinkedList list = getList(2);
+		assertThrows(IllegalArgumentException.class, () -> list.insertAtPosition(-1, "-1"), "No negative positions allowed.");
+		System.out.println(list);
+	}
+	
+	@Test
+	void insertElementAtPositionCloserToTheFrontToListWithExistingItemsTest() {
+		DoublyLinkedList list = getList(2);
+		list.insertAtPosition(1, "0");
+		
+		assertEquals(3, list.getCount());
+		assertEquals("0", list.getElementAtPosition(1));
+		System.out.println(list);
+	}
+	
+	@Test
+	void insertElementAtPositionCloserToTheEndToListWithExistingItemsTest() {
+		DoublyLinkedList list = getList(4);
+		list.insertAtPosition(3, "0");
+		
+		assertEquals(5, list.getCount());
+		assertEquals("0", list.getElementAtPosition(3));
+		System.out.println(list);
+	}
+	
+	@Test
+	void appendElementToEmptyListTest() {
+
+		DoublyLinkedList list = getList();
+		list.append("1");
+		String listHead = list.getHead();
+		String listTail = list.getTail();
+
+		assertEquals(1,list.getCount());
+		assertEquals("1", listTail);
+		assertEquals(listHead, listTail);
+		System.out.println(list);
+	}		
+	
+	@Test
+	void appendElementToListWithOneExistingItemTest() {
+
+		DoublyLinkedList list = getList(1);
+		list.append("2");
+		String listHead = list.getHead();
+		String listTail = list.getTail();
+
+		assertEquals(2,list.getCount());
+		assertEquals("1", listHead);
+		assertEquals("2", listTail);
+		System.out.println(list);
+		
+	}
+	
+	@Test
+	void appendElementToListWitExistingItemsTest() {
+
+		DoublyLinkedList list = getList(2);
+		list.append("3");
+		String listHead = list.getHead();
+		String listTail = list.getTail();
+
+		assertEquals(3,list.getCount());
+		assertEquals("1", listHead);
+		assertEquals("3", listTail);
+		System.out.println(list);
+		
+	}
+	
 	@Test
 	void replaceElementAtEachPositionFromListTest() {
 		DoublyLinkedList list = getList(4);
@@ -253,34 +325,45 @@ class DoublyLinkedListTest {
 	}
 	
 	@Test
-	void replaceNonExistingElementFromListTest() {
-		DoublyLinkedList list = getList(4);
-		System.out.println("List = "+list);
-		assertThrows(IllegalArgumentException.class, () -> list.replaceAtPosition(10, "false replace"), "Invalid position.");
-	}
-	
-	@Test
 	void replaceNonExistingElementFromEmptyListTest() {
 		DoublyLinkedList list = getList();
 		System.out.println("List = "+list);
 		assertThrows(IllegalArgumentException.class, () -> list.replaceAtPosition(10, "false replace"), "Invalid position.");
 	}
+
+	@Test
+	void replaceNonExistingElementFromListTest() {
+		DoublyLinkedList list = getList(4);
+		System.out.println("List = "+list);
+		assertThrows(IllegalArgumentException.class, () -> list.replaceAtPosition(10, "false replace"), "Invalid position.");
+	}	
 	
 	@Test
-	void checkIfExistingElementIsInListTest() {
-		DoublyLinkedList list = getList(4);
-		for (int i = 0; i < list.getCount(); i++) {	
-			assertEquals(true, list.contains(Integer.toString(i+1)));
-		}
+	void removeExistingElementFromListWithOnlyOneElementTest() {
+		DoublyLinkedList list = getList(1);
+		list.remove("1");
+		assertEquals(0, list.getCount());
+		assertEquals(false, list.contains("1"));
 		System.out.println(list);
 	}
 	
 	@Test
-	void checkIfNonExistingElementIsInListTest() {
-		DoublyLinkedList list = getList(4);
-		for (int i = 0; i < list.getCount(); i++) {			
-			assertEquals(false, list.contains("false string"));
-		}
+	void removeNonExistingElementFromListTest() {
+		DoublyLinkedList list = getList(3);
+		list.remove("non existing");
+		
+		assertEquals(3, list.getCount());
+		assertEquals(false, list.contains("non existing"));
+		System.out.println(list);
+		
+	}
+	
+	@Test
+	void removeNonExistingElementFromListWithOnlyOneElementTest() {
+		DoublyLinkedList list = getList();
+		list.remove("1");
+		assertEquals(0, list.getCount());
+		assertEquals(false, list.contains("1"));
 		System.out.println(list);
 	}
 	
@@ -315,35 +398,6 @@ class DoublyLinkedListTest {
 		assertEquals(false, list.contains("2"));
 		System.out.println(list);
 		
-	}
-	
-	@Test
-	void removeNonExistingElementFromListTest() {
-		DoublyLinkedList list = getList(3);
-		list.remove("non existing");
-		
-		assertEquals(3, list.getCount());
-		assertEquals(false, list.contains("non existing"));
-		System.out.println(list);
-		
-	}
-	
-	@Test
-	void removeExistingElementFromListWithOnlyOneElementTest() {
-		DoublyLinkedList list = getList(1);
-		list.remove("1");
-		assertEquals(0, list.getCount());
-		assertEquals(false, list.contains("1"));
-		System.out.println(list);
-	}
-	
-	@Test
-	void removeNonExistingElementFromListWithOnlyOneElementTest() {
-		DoublyLinkedList list = getList();
-		list.remove("1");
-		assertEquals(0, list.getCount());
-		assertEquals(false, list.contains("1"));
-		System.out.println(list);
 	}
 	
 	@Test
