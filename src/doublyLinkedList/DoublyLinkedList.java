@@ -62,7 +62,7 @@ public class DoublyLinkedList {
 	 * @param position the position to look for.
 	 * @return the element at the specified position.
 	 */
-	public String getElementAtPosition(int position) {
+	public String getElementAtPosition(int position) throws IllegalArgumentException {
 		return this.getNodeAtPosition(position).getValue();
 	}
 	
@@ -144,7 +144,7 @@ public class DoublyLinkedList {
 	 * @param position to insert the element.
 	 * @param element to insert.
 	 */
-	public void insertAtPosition(int position, String element) {
+	public void insertAtPosition(int position, String element) throws IllegalArgumentException {
 		if ( position < 0 ){
 			throw new IllegalArgumentException("No negative positions allowed.");
 		} else if (position == 0) {
@@ -204,7 +204,7 @@ public class DoublyLinkedList {
 	 * @param position to replace the element
 	 * @param newElement to be set at the given position
 	 */
-	public void replaceAtPosition(int position, String newElement) {
+	public void replaceAtPosition(int position, String newElement) throws IllegalArgumentException {
 		Node replaceNode = this.getNodeAtPosition(position);
 		replaceNode.setValue(newElement);
 	}
@@ -226,7 +226,7 @@ public class DoublyLinkedList {
 	 * @param position of the element to delete
 	 * @return the element deleted
 	 */
-	public String removeAtPosition(int position) {
+	public String removeAtPosition(int position) throws IllegalArgumentException {
 		Node removeNode = this.getNodeAtPosition(position);
 		this.removeNode(removeNode);
 		return removeNode.getValue();
@@ -314,7 +314,7 @@ public class DoublyLinkedList {
 	 * @param position to find the element
 	 * @return Node at the given position of the DoublyLinkedList.
 	 */
-	private Node getNodeAtPosition(int position) {
+	private Node getNodeAtPosition(int position) throws IllegalArgumentException {
 		if ( position < 0 || position >= this.getCount() ){
 			throw new IllegalArgumentException("Invalid position.");
 		} else if (position == 0) {
