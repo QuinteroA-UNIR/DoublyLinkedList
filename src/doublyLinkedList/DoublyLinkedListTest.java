@@ -112,7 +112,7 @@ class DoublyLinkedListTest {
 		 System.setOut(new PrintStream(outContent));
 		 DoublyLinkedList list = getList(1);
 		 list.print();
-		 assertEquals("[ 1 ]\n", outContent.toString());
+		 assertEquals("[ \"1\" ]\n", outContent.toString());
 	}
 	
 	@Test
@@ -121,7 +121,7 @@ class DoublyLinkedListTest {
 		 System.setOut(new PrintStream(outContent));
 		 DoublyLinkedList list = getList(4);
 		 list.print();
-		 assertEquals("[ 1, 2, 3, 4 ]\n", outContent.toString());
+		 assertEquals("[ \"1\", \"2\", \"3\", \"4\" ]\n", outContent.toString());
 	}
 	
 	@Test

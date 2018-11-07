@@ -85,7 +85,7 @@ public class DoublyLinkedList {
 				result += ", ";	
 			}
 			
-			result += temp.getValue();
+			result += "\"" + temp.getValue() + "\"";
 			temp = temp.getNext();
 		} while (temp != null);
 		result += " ]";
