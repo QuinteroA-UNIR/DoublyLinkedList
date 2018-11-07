@@ -341,7 +341,9 @@ class DoublyLinkedListTest {
 	@Test
 	void removeExistingElementFromListWithOnlyOneElementTest() {
 		DoublyLinkedList list = getList(1);
-		list.remove("1");
+		boolean removed = list.remove("1");
+
+		assertEquals(true, removed);
 		assertEquals(0, list.getCount());
 		assertEquals(false, list.contains("1"));
 		System.out.println(list);
@@ -350,8 +352,9 @@ class DoublyLinkedListTest {
 	@Test
 	void removeNonExistingElementFromListTest() {
 		DoublyLinkedList list = getList(3);
-		list.remove("non existing");
+		boolean removed = list.remove("non existing");
 		
+		assertEquals(false, removed);
 		assertEquals(3, list.getCount());
 		assertEquals(false, list.contains("non existing"));
 		System.out.println(list);
@@ -361,7 +364,9 @@ class DoublyLinkedListTest {
 	@Test
 	void removeNonExistingElementFromListWithOnlyOneElementTest() {
 		DoublyLinkedList list = getList();
-		list.remove("1");
+		boolean removed = list.remove("1");
+		
+		assertEquals(false, removed);
 		assertEquals(0, list.getCount());
 		assertEquals(false, list.contains("1"));
 		System.out.println(list);
@@ -370,8 +375,9 @@ class DoublyLinkedListTest {
 	@Test
 	void removeExistingElementAtPositionFirstFromListTest() {
 		DoublyLinkedList list = getList(3);
-		list.remove("1");
+		boolean removed = list.remove("1");
 		
+		assertEquals(true, removed);
 		assertEquals(2, list.getCount());
 		assertEquals(false, list.contains("1"));
 		System.out.println(list);
@@ -381,8 +387,9 @@ class DoublyLinkedListTest {
 	@Test
 	void removeExistingElementAtPositionLastFromListTest() {
 		DoublyLinkedList list = getList(3);
-		list.remove("3");
+		boolean removed = list.remove("3");
 		
+		assertEquals(true, removed);
 		assertEquals(2, list.getCount());
 		assertEquals(false, list.contains("3"));
 		System.out.println(list);
@@ -392,8 +399,9 @@ class DoublyLinkedListTest {
 	@Test
 	void removeExistingElementAtPositionMiddleFromListTest() {
 		DoublyLinkedList list = getList(3);
-		list.remove("2");
+		boolean removed = list.remove("2");
 		
+		assertEquals(true, removed);
 		assertEquals(2, list.getCount());
 		assertEquals(false, list.contains("2"));
 		System.out.println(list);

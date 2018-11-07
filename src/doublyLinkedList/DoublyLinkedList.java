@@ -214,10 +214,11 @@ public class DoublyLinkedList {
 	 * then nothing is deleted.
 	 * @param element to remove
 	 */
-	public void remove(String element) {
+	public boolean remove(String element) {
 		Node removeNode = this.getNodeByValue(element);
-		if (removeNode == null) return;
+		if (removeNode == null) return false;
 		this.removeNode(removeNode);
+		return true;
 	}
 	
 	/**
